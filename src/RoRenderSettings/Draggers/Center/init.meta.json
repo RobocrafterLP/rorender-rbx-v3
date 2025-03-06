@@ -1,0 +1,11 @@
+{
+    "className": "Part",
+    "properties": {
+        "Size": [1,1,1],
+        "Transparency": 0.4,
+        "CastShadow": false,
+        "Color": [0.384314, 0.145098, 0.819608],
+        "Locked": true,
+        "Position": [0,11,0]
+    }
+}
