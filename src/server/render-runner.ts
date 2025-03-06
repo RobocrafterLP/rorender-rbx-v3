@@ -25,7 +25,7 @@ export const runRender = (
 	progressHooks.setCurrentStatusText('Rendering Image...');
 	progressHooks.setCurrentProgress(0);
 	task.wait(0.5);
-	let gotimagesSize = true
+	let gotimagesSize = false
 	render(renderSettings, progressHooks)
 		.then((output) => {
 			print(typeOf(output), output);
@@ -63,19 +63,19 @@ export const runRender = (
 				// print(chunk);
 				promises.push(
 					new Promise<void>((success, failure) => {
-						// print('sent ' + tostring(idx), 'size: ' + chunk.size());
-						// const [httpSuccess, errorMsg] = pcall(() => {
-						// 	httpService.PostAsync(
-						// 		'http://localhost:8081/data',
-						// 		httpService.JSONEncode(chunk)
-						// 	);
-						// });
-						if (true) {
+						print('sent ' + tostring(idx), 'size: ' + chunk.size());
+						const [httpSuccess, errorMsg] = pcall(() => {
+							httpService.PostAsync(
+								'http://localhost:8081/data',
+								httpService.JSONEncode(chunk)
+							);
+						});
+						if (httpSuccess) {
 							chunksSent++;
 							progressHooks.setCurrentProgress(chunksSent / output.size());
 							success();
 						} else {
-							failure("errorMsg");
+							failure(errorMsg);
 						}
 					})
 				);
